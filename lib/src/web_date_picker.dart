@@ -108,6 +108,8 @@ class _WebDatePickerState extends State<WebDatePicker> {
         children: [
           Container(
             color: Colors.black,
+            width: 600,
+            height: 600,
           ),
           Positioned(
             width: 300,
