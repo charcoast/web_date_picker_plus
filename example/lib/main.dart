@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
           body: Center(
             child: WebDatePicker(
               onChange: (value) {},
+              onRemove: () {},
             ),
           ),
         ),

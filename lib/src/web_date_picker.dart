@@ -18,7 +18,7 @@ class WebDatePicker extends StatefulWidget {
     this.dateformat = 'yyyy/MM/dd',
     this.overlayVerticalPosition = 5.0,
     this.overlayHorizontalPosiition = 0.0,
-    this.inputDecoration,
+    this.boxDecoration,
   }) : super(key: key);
 
   /// The initial date first
@@ -47,7 +47,7 @@ class WebDatePicker extends StatefulWidget {
   final double overlayHorizontalPosiition;
 
   //The decoration of text form field
-  final InputDecoration? inputDecoration;
+  final BoxDecoration? boxDecoration;
 
   /// The prefix of date form field
   final Widget? prefix;
@@ -136,7 +136,12 @@ class _WebDatePickerState extends State<WebDatePicker> {
                     firstDate: _firstDate,
                     lastDate: _lastDate,
                     initialDate: _selectedDate ?? DateTime.now(),
-                    onDateChanged: onChange,
+                    onDateChanged: (date) {
+                      onChange(date);
+                      widget.onRemove();
+                      _controller.clear();
+                      _overlayEntry.remove();
+                    },
                   ),
                 ),
               ),
@@ -152,6 +157,7 @@ class _WebDatePickerState extends State<WebDatePicker> {
     return CompositedTransformTarget(
       link: _layerLink,
       child: MouseRegion(
+        cursor: SystemMouseCursors.click,
         onEnter: (_) {
           setState(() {
             _isEnterDateField = true;
@@ -162,28 +168,48 @@ class _WebDatePickerState extends State<WebDatePicker> {
             _isEnterDateField = false;
           });
         },
-        child: SizedBox(
-          width: widget.width,
-          height: widget.height,
-          child: TextFormField(
-            focusNode: _focusNode,
-            controller: _controller,
-            decoration: widget.inputDecoration ??
-                InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-                  border: const OutlineInputBorder(),
-                  suffixIcon: _buildPrefixIcon(),
+        child: GestureDetector(
+          onTap: () {
+            _focusNode.requestFocus();
+            setState(() {
+              _isEnterDateField = true;
+            });
+            _overlayEntry = _createOverlayEntry();
+            Overlay.of(context)?.insert(_overlayEntry);
+          },
+          child: SizedBox(
+            width: widget.width,
+            height: widget.height,
+            child:  Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: widget.boxDecoration,
+                  ),
                 ),
-            onChanged: (dateString) {
-              final date = dateString.parseToDateTime(widget.dateformat);
-              if (date.isBefore(_firstDate)) {
-                _selectedDate = _firstDate;
-              } else if (date.isAfter(_lastDate)) {
-                _selectedDate = _lastDate;
-              } else {
-                _selectedDate = date;
-              }
-            },
+                _buildPrefixIcon()
+              ],
+            )
+            /*TextFormField(
+              focusNode: _focusNode,
+              controller: _controller,
+              decoration: widget.inputDecoration ??
+                  InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                    border: const OutlineInputBorder(),
+                    suffixIcon: _buildPrefixIcon(),
+                  ),
+              onChanged: (dateString) {
+                final date = dateString.parseToDateTime(widget.dateformat);
+                if (date.isBefore(_firstDate)) {
+                  _selectedDate = _firstDate;
+                } else if (date.isAfter(_lastDate)) {
+                  _selectedDate = _lastDate;
+                } else {
+                  _selectedDate = date;
+                }
+              },
+            ),*/
           ),
         ),
       ),
@@ -203,6 +229,17 @@ class _WebDatePickerState extends State<WebDatePicker> {
       );
     } else {
       return widget.prefix ?? const Icon(Icons.date_range);
+    }
+  }
+
+  void _generateOverlay() {
+    if (_focusNode.hasFocus) {
+      _overlayEntry = _createOverlayEntry();
+      Overlay.of(context)?.insert(_overlayEntry);
+    } else {
+      _controller.text = _selectedDate.parseToString(widget.dateformat);
+      widget.onChange.call(_selectedDate);
+      _overlayEntry.remove();
     }
   }
 }
