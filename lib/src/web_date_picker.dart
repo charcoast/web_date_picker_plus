@@ -115,7 +115,7 @@ class _WebDatePickerState extends State<WebDatePicker> {
               _focusNode.unfocus();
             },
             child: Container(
-              color: Colors.black,
+              color: Colors.red,
             ),
           ),
           Positioned(
