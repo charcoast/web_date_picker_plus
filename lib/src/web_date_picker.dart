@@ -106,8 +106,13 @@ class _WebDatePickerState extends State<WebDatePicker> {
     return OverlayEntry(
       builder: (context) => Stack(
         children: [
-          Container(
-            color: Colors.black,
+          GestureDetector(
+            onTap: () {
+              _overlayEntry.remove();
+            },
+            child: Container(
+              color: Colors.black,
+            ),
           ),
           Positioned(
             width: 300,
