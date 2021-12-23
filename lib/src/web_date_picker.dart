@@ -104,26 +104,33 @@ class _WebDatePickerState extends State<WebDatePicker> {
 
   OverlayEntry _createOverlayEntry() {
     return OverlayEntry(
-      builder: (context) => Positioned(
-        width: 300,
-        child: CompositedTransformFollower(
-          link: _layerLink,
-          showWhenUnlinked: false,
-          offset: Offset(widget.overlayHorizontalPosiition,
-              widget.overlayVerticalPosition),
-          child: Material(
-            elevation: 5,
-            child: SizedBox(
-              height: 250,
-              child: CalendarDatePicker(
-                firstDate: _firstDate,
-                lastDate: _lastDate,
-                initialDate: _selectedDate ?? DateTime.now(),
-                onDateChanged: onChange,
+      builder: (context) => Stack(
+        children: [
+          Container(
+            color: Colors.black,
+          ),
+          Positioned(
+            width: 300,
+            child: CompositedTransformFollower(
+              link: _layerLink,
+              showWhenUnlinked: false,
+              offset: Offset(widget.overlayHorizontalPosiition,
+                  widget.overlayVerticalPosition),
+              child: Material(
+                elevation: 5,
+                child: SizedBox(
+                  height: 250,
+                  child: CalendarDatePicker(
+                    firstDate: _firstDate,
+                    lastDate: _lastDate,
+                    initialDate: _selectedDate ?? DateTime.now(),
+                    onDateChanged: onChange,
+                  ),
+                ),
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
