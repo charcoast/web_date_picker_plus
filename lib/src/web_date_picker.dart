@@ -10,6 +10,7 @@ class WebDatePicker extends StatefulWidget {
     this.firstDate,
     this.lastDate,
     required this.onChange,
+    required this.onRemove,
     this.style,
     this.width = 200,
     this.height = 36,
@@ -31,6 +32,8 @@ class WebDatePicker extends StatefulWidget {
 
   /// Called when the user picks a day.
   final ValueChanged<DateTime?> onChange;
+
+  final Function onRemove;
 
   /// The text style of date form field
   final TextStyle? style;
@@ -192,6 +195,7 @@ class _WebDatePickerState extends State<WebDatePicker> {
       return IconButton(
         icon: const Icon(Icons.close),
         onPressed: () {
+          widget.onRemove();
           _controller.clear();
           _selectedDate = null;
         },
