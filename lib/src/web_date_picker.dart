@@ -111,10 +111,6 @@ class _WebDatePickerState extends State<WebDatePicker> {
         children: [
           GestureDetector(
             onTap: () {
-              _overlayEntry.remove();
-              setState(() {
-                _isEnterDateField = false;
-              });
               _focusNode.unfocus();
             },
             child: Container(
