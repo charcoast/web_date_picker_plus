@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:web_date_picker/web_date_picker.dart';
+import 'package:web_date_picker_plus/web_date_picker_plus.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       ),
       home: GestureDetector(
         onTap: () {
-          FocusScope.of(context).requestFocus(FocusNode()); 
+          FocusScope.of(context).requestFocus(FocusNode());
         },
         child: Scaffold(
           body: Center(
