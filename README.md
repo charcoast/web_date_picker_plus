@@ -1,6 +1,8 @@
 # web_date_picker_plus
-Version 1.0.0+4
-The [Web date picker](https://pub.dev/packages/web_date_picker) provides a date picker rendering library for web application development.
+
+Fork from [CelebrateTeam's Web date picker](https://github.com/CelebrateTeam/web_date_picker)
+
+The [Web date picker plus](https://pub.dev/packages/web_date_picker_plus) provides a date picker rendering library for web application development.
 
 Based on [React date picker](https://www.npmjs.com/package/react-datepicker). 
 
@@ -12,14 +14,14 @@ In the `dependencies:` section of your `pubspec.yaml`, add the following line:
 
 ```yaml
 dependencies:
-  web_date_picker: <latest_version>
+  web_date_picker_plus: <latest_version>
 ```
 
 ## Usage
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:web_date_picker/web_date_picker.dart';
+import 'package:web_date_picker_plus/web_date_picker_plus.dart';
 
 void main() {
   runApp(MyApp());
@@ -42,6 +44,9 @@ class MyApp extends StatelessWidget {
             child: WebDatePicker(
               onChange: (value) {
               },
+              onRemove: (){
+
+              }
             ),
           ),
         ),
