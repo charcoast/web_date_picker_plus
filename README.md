@@ -1,5 +1,5 @@
-# web_date_picker 
-
+# web_date_picker_plus
+Version 1.0.0+4
 The [Web date picker](https://pub.dev/packages/web_date_picker) provides a date picker rendering library for web application development.
 
 Based on [React date picker](https://www.npmjs.com/package/react-datepicker). 
