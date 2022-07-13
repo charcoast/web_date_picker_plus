@@ -6,6 +6,8 @@ import 'string_extension.dart';
 class WebDatePicker extends StatefulWidget {
   const WebDatePicker({
     Key? key,
+    this.formKey,
+    this.validator,
     this.initialDate,
     this.firstDate,
     this.lastDate,
@@ -54,6 +56,14 @@ class WebDatePicker extends StatefulWidget {
 
   /// The date format will be displayed in date form field
   final String dateformat;
+
+  /// The validator function.
+  /// Same as TextFormField validator but the returned text will not be
+  /// displayed, the border will just turn red.
+  final FormFieldValidator<String>? validator;
+
+  /// The GlobalKey to call validate
+  final GlobalKey? formKey;
 
   @override
   _WebDatePickerState createState() => _WebDatePickerState();
@@ -165,9 +175,14 @@ class _WebDatePickerState extends State<WebDatePicker> {
             readOnly: true,
             focusNode: _focusNode,
             controller: _controller,
+            validator: widget.validator,
+            key: widget.formKey,
             decoration: widget.inputDecoration ??
                 InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                  errorMaxLines: 1,
+                  errorStyle: TextStyle(
+                      color: Colors.transparent, fontSize: 1, height: 0),
                   border: const OutlineInputBorder(),
                   suffixIcon: _buildPrefixIcon(),
                 ),
