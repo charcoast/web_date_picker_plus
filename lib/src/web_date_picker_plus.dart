@@ -177,6 +177,7 @@ class _WebDatePickerState extends State<WebDatePicker> {
             controller: _controller,
             validator: widget.validator,
             key: widget.formKey,
+            style: widget.style,
             decoration: widget.inputDecoration ??
                 InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10),
