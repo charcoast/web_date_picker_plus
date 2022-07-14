@@ -173,16 +173,17 @@ class _WebDatePickerState extends State<WebDatePicker> {
           height: widget.height,
           child: TextFormField(
             readOnly: true,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            key: widget.formKey,
+            validator: widget.validator,
             focusNode: _focusNode,
             controller: _controller,
-            validator: widget.validator,
-            key: widget.formKey,
             style: widget.style,
             decoration: widget.inputDecoration ??
                 InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                   errorMaxLines: 1,
-                  errorStyle: TextStyle(
+                  errorStyle: const TextStyle(
                       color: Colors.transparent, fontSize: 1, height: 0),
                   border: const OutlineInputBorder(),
                   suffixIcon: _buildPrefixIcon(),
